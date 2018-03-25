@@ -7,6 +7,9 @@ body {
   background-size: cover;  
   font-family: 'Nunito Sans', sans-serif;
 }
+.time, .time-start{
+  opacity: 1;
+}
 .questions {
   font-size: 20px;
   color: rgb(60, 200, 255);
@@ -42,12 +45,14 @@ cursor: pointer;
   cursor: pointer;
 }
 
-#giphy-container{
-  position: absolute; 
-  top: 50%;
-  left: 40%;
-  z-index: 100;
-
+.giphyInBox {
+opacity: 1;
 }
+
+div img {
+  z-index: 1 !important;
+}
+
+
 
 

@@ -72,34 +72,34 @@ var questionCorrect = 0
       var giphyURLFromHTML = $(this).attr('giphy-url')
 
         if (choiceData == answerData){
-          $('#giphy-container').html(`<img src="${giphyURLFromHTML}">`)
+        let giphyInBox = $('<div class= "giphyInBox">');
+        let extraDiv =$('div');
+        giphyInBox.append(`<img src="${giphyURLFromHTML}">`);
+        $(this).append(giphyInBox);
+          //$('#giphy-container').html(`<img src="${giphyURLFromHTML}">`)
           questionCorrect++
         } else {
-            // wrong image
+            // wrong image maybe
         }
     })
-    $(document).ready(function() {
-        setTimeout(function() {
-            $("#giphy-container").fadeOut(1500);
-        },3000);
-    });
 
 
-    //functions
+
+//functions
         //add timer
+
         function startTimer(duration, display) {
             var timer = duration, minutes, seconds;
             setInterval(function () {
                 minutes = parseInt(timer / 60, 10)
                 seconds = parseInt(timer % 60, 10);
-
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-
                 display.textContent = minutes + ":" + seconds;
-
                 if (--timer < 0) {
-                    timer = duration;
+                    timer = 0;
+                    alert("You ran out of time!");
+                    clearInterval(setInterval);
                 }
             }, 1000);
         }
@@ -110,11 +110,16 @@ var questionCorrect = 0
             startTimer(twoMinutes, display);
         });
 
+
+    
+
 //function to start game
     function startGame() {
         //populate questions div
         for (var i = 0; i < questions.length; i++) {
             $('.js-questions').append('<p class = "mainquestions">' + questions[i].question + '</p>');
+            var giphyContainer = $("<div>");
+            $('.js-questions').append(giphyContainer);
             //loop through answers
             for (var j = 0; j < questions[i].answers.length; j++) {
                 $('.js-questions').append(`<span class="answers" choice-data="${questions[i].answers[j]}" answer-data="${questions[i].correctAnswer}" user-chose="false" giphy-url="${questions[i].giphyURL}">${questions[i].answers[j]}</span>`);
@@ -122,9 +127,11 @@ var questionCorrect = 0
             $('.js-questions').append('<br><hr>');
         }
     };
-    //stop game
+
+
+//function to stop game
     function stopGame() {
-        $('input:checked').each(function () {
+        $('user-chose').each(function () {
             //if value = correct question answer add 1 to score
             let answerChecked = $(this).val();
             if (answerChecked === questions[$(this).attr('name')].correctAnswer) {
@@ -134,8 +141,9 @@ var questionCorrect = 0
             }
         });
     }
-    //giphy and score when game over
-    //events
+
+    
+//events
     //click start button will start the game
     $('.js-start').on('click', function () {
         //execute instructions
@@ -146,6 +154,11 @@ var questionCorrect = 0
         //execute instructions
         stopGame();
     });
-    //click stop button to see score
-    //timer runs out to end game and show score
+
+
+
+//Time run out-> game over -> sad giphy you lose time up
+//Submit button -> end game -> give score and happy giphy
+//Get giphy to fade after it pops up after each question
+
 });
