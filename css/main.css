@@ -51,7 +51,9 @@ opacity: 1;
 div img {
   z-index: 1 !important;
 }
-
+.score {
+color: white;
+}
 
 
 

@@ -89,7 +89,7 @@ var questionCorrect = 0
 
     //function to start game
     function startGame() {
-        var time = 30 
+        var time = 90 
         setInterval(function(){
             time--
            $("#time").text(time)
@@ -118,7 +118,7 @@ var questionCorrect = 0
         $(".js-start").hide()
         $(".js-stop").hide()
 
-        $("#score").text("You have " + questionCorrect + " questions correct out of 10!")
+        $("#score").text("You have " + questionCorrect + " correct out of 10!")
 
         $('answer-data').each(function () {
             let answerChecked = $(this).val();
