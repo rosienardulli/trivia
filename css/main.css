@@ -52,7 +52,10 @@ div img {
   z-index: 1 !important;
 }
 .score {
-color: white;
+color: rgb(60, 200, 255);
+}
+.scoretwo {
+  color: white;
 }
 
 
