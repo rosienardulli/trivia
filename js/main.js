@@ -1,6 +1,9 @@
 $(document).ready(function () {
     //global variables
     //question data
+
+  $("#end-game").hide()
+
 var questionCorrect = 0
 
     let questions = [{
@@ -72,49 +75,29 @@ var questionCorrect = 0
       var giphyURLFromHTML = $(this).attr('giphy-url')
 
         if (choiceData == answerData){
-        let giphyInBox = $('<div class= "giphyInBox">');
-        let extraDiv =$('div');
-        giphyInBox.append(`<img src="${giphyURLFromHTML}">`);
-        $(this).append(giphyInBox);
-          //$('#giphy-container').html(`<img src="${giphyURLFromHTML}">`)
-          questionCorrect++
+            let giphyInBox = $('<div class= "giphyInBox">');
+            let extraDiv =$('div');
+            giphyInBox.append(`<img src="${giphyURLFromHTML}">`);
+            $(this).append(giphyInBox);
+            questionCorrect++
         } else {
-            // wrong image maybe
+            let giphyInBoxWrong = $('<div class= "giphyInBoxWrong">');
+            giphyInBoxWrong.append(`<img src="https://media.giphy.com/media/YGfFY30VQNlHG/giphy.gif">`);
+            $(this).append(giphyInBoxWrong)
         }
     })
 
-
-
-//functions
-        //add timer
-
-        function startTimer(duration, display) {
-            var timer = duration, minutes, seconds;
-            setInterval(function () {
-                minutes = parseInt(timer / 60, 10)
-                seconds = parseInt(timer % 60, 10);
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = minutes + ":" + seconds;
-                if (--timer < 0) {
-                    timer = 0;
-                    alert("You ran out of time!");
-                    clearInterval(setInterval);
-                }
-            }, 1000);
-        }
-
-            $('.js-start').on('click', function(){
-            var twoMinutes = 60 * 2,
-                display = document.querySelector('#time');
-            startTimer(twoMinutes, display);
-        });
-
-
-    
-
-//function to start game
+    //function to start game
     function startGame() {
+        var time = 30 
+        setInterval(function(){
+            time--
+           $("#time").text(time)
+            if (time == 0){
+                stopGame()
+                $("#time-container").html("You ran out of time!")
+            }
+        },1000)
         //populate questions div
         for (var i = 0; i < questions.length; i++) {
             $('.js-questions').append('<p class = "mainquestions">' + questions[i].question + '</p>');
@@ -123,42 +106,32 @@ var questionCorrect = 0
             //loop through answers
             for (var j = 0; j < questions[i].answers.length; j++) {
                 $('.js-questions').append(`<span class="answers" choice-data="${questions[i].answers[j]}" answer-data="${questions[i].correctAnswer}" user-chose="false" giphy-url="${questions[i].giphyURL}">${questions[i].answers[j]}</span>`);
-            }
+            } 
             $('.js-questions').append('<br><hr>');
         }
     };
 
-
-//function to stop game
+    //function to stop game
     function stopGame() {
-        $('user-chose').each(function () {
-            //if value = correct question answer add 1 to score
+        $("#end-game").show()
+        $(".js-questions").hide()
+        $(".js-start").hide()
+        $(".js-stop").hide()
+
+        $("#score").text("You have " + questionCorrect + " questions correct out of 10!")
+
+        $('answer-data').each(function () {
             let answerChecked = $(this).val();
-            if (answerChecked === questions[$(this).attr('name')].correctAnswer) {
-                console.log('correct');
-            } else {
-                console.log('wrong');
-            }
         });
     }
 
-    
-//events
-    //click start button will start the game
+    //event-click start button 
     $('.js-start').on('click', function () {
-        //execute instructions
         startGame();
     });
-    //click stop button will stop the game
+    //event-click stop button 
     $('.js-stop').on('click', function () {
-        //execute instructions
         stopGame();
     });
-
-
-
-//Time run out-> game over -> sad giphy you lose time up
-//Submit button -> end game -> give score and happy giphy
-//Get giphy to fade after it pops up after each question
 
 });
