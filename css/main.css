@@ -10,18 +10,25 @@ body {
 .time, .time-start{
   opacity: 1;
 }
+#time-container{
+  font-size: 20px;
+  color: white;
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: rgb(60, 200, 255);
+  padding: 5px 0px 5px 0px;
+}
 .questions {
   font-size: 20px;
   color: rgb(60, 200, 255);
 }
 .mainquestions {
 color:white;
-font-size: 22px;
+font-size: 24px;
 }
 .answers { 
 color: rgb(60, 200, 255);
 margin: 0px 20px 0px 0px;
-font-size: 18;
+font-size: 20;
 cursor: pointer;
 }
 .container {
@@ -33,7 +40,7 @@ cursor: pointer;
  
   padding: 10px;  
 }
-.js-start, .js-stop {
+.js-start, .js-stop, .js-tryagainbutton {
   background-color: rgb(60, 200, 255);
   color: white;
   padding: 18px;

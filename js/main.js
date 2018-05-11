@@ -3,6 +3,9 @@ $(document).ready(function () {
     //question data
 
   $("#end-game").hide()
+  $("#time-container").hide()
+  $(".js-stop").hide()
+  $(".js-tryagainbutton").hide()
 
 var questionCorrect = 0
 
@@ -89,6 +92,9 @@ var questionCorrect = 0
 
     //function to start game
     function startGame() {
+        $("#time-container").show()
+        $(".js-stop").show()
+        $(".js-start").hide()
         var time = 120 
         setInterval(function(){
             time--
@@ -117,6 +123,8 @@ var questionCorrect = 0
         $(".js-questions").hide()
         $(".js-start").hide()
         $(".js-stop").hide()
+        $("#time-container").hide()
+        $(".js-tryagainbutton").show()
 
         $("#score").text("You got " + questionCorrect + " correct out of 10!")
 
@@ -132,6 +140,10 @@ var questionCorrect = 0
     //event-click stop button 
     $('.js-stop').on('click', function () {
         stopGame();
+    });
+    //event-click try again
+    $('.js-tryagainbutton').on('click', function () {
+        location.reload();
     });
 
 });
